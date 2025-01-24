@@ -9,7 +9,6 @@ pipeline {
 
     tools {
         maven 'maven' // Replace with your Maven installation name in Jenkins
-        jdk 'JDK 17'      // Replace with the required JDK version
     }
 
         stage('Clone Repository') {
