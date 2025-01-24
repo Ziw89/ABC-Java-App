@@ -2,20 +2,21 @@ pipeline {
     agent any
 
     environment {
-      dockerImage = ''
-      registry = 'bridgetching9528/abcapp'
-      registryCredential = 'Dockerhub-login'
+        dockerImage = '' // This can be assigned dynamically in the pipeline
+        registry = 'bridgetching9528/abcapp'
+        registryCredential = 'Dockerhub-login' // Ensure this matches your Jenkins credentials ID
     }
 
     tools {
         maven 'maven' // Replace with your Maven installation name in Jenkins
     }
 
+    stages {
         stage('Clone Repository') {
             steps {
                 // Clone public repository without credentials
                 checkout([
-                    $class: 'GitSCM', 
+                    $class: 'GitSCM',
                     branches: [[name: '*/main']], // Replace 'main' with your branch
                     userRemoteConfigs: [[
                         url: 'https://github.com/Ngwaabanjong/ABC-Java-App.git' // Replace with your public repository URL
@@ -23,8 +24,6 @@ pipeline {
                 ])
             }
         }
-    }
-}
         stage('Clean') {
             steps {
                 sh 'mvn clean'
@@ -32,7 +31,7 @@ pipeline {
         }
         stage('Compile') {
             steps {
-                sh 'mvn compiler:compile'
+                sh 'mvn compile'
             }
         }
         stage('Test') {
@@ -48,18 +47,19 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Replace 'your-image-name' with the desired Docker image name
-                    sh 'docker build -t bridgetching9528/abcapp .'
+                    // Build Docker image with the given name
+                    dockerImage = "${registry}:latest" // Tag the image
+                    sh "docker build -t ${dockerImage} ."
                 }
             }
         }
-    }
-        stage('Push image to Hub') {
+        stage('Push Image to Docker Hub') {
             steps {
                 script {
-                    // make sure you install the docker pipeline pluging
+                    // Push Docker image to registry
                     docker.withRegistry('', registryCredential) {
-                    sh 'docker push bridgetching9528/abcapp'
+                        sh "docker push ${dockerImage}"
+                    }
                 }
             }
         }
