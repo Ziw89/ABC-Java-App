@@ -2,9 +2,11 @@
 Java App for CI/CD learning projects
 
 ## Building App with CLI Commands:
+```
 mvn compiler:compile
 mvn test
 mvn package
+```
 
 ## Using Jenkinsfile to automate this build:
 ```
