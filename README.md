@@ -80,3 +80,10 @@ networks:
 
 
 ```
+//Commands
+```
+docker compose up -d
+docker compose down
+docker compose start
+docker compose stop
+```
