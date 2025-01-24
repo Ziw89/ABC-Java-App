@@ -58,32 +58,6 @@ pipeline {
     }
 }
 ```
-//code
-```
-version: '3.8'
-
-services:
-  jenkins01:
-    image: jenkins/jenkins
-    container_name: jenkins01
-    ports:
-      - "8080:8080"
-      - "50000:50000"
-    networks:
-      - jenkins_network
-    volumes:
-      - /Users/ignatiusngwaabanjong/Docker/data/jenkins01data:/var/jenkins_home
-
-networks:
-  jenkins_network:
-    driver: bridge
 
 
-```
-//Commands
-```
-docker compose up -d
-docker compose down
-docker compose start
-docker compose stop
-```
+
