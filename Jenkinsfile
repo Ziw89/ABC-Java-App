@@ -12,13 +12,20 @@ pipeline {
         jdk 'JDK 17'      // Replace with the required JDK version
     }
 
-    stages {
-        stage('Checkout') {
+        stage('Clone Repository') {
             steps {
-                // Checkout code from your repository
-                checkout scm
+                // Clone public repository without credentials
+                checkout([
+                    $class: 'GitSCM', 
+                    branches: [[name: '*/main']], // Replace 'main' with your branch
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/Ngwaabanjong/ABC-Java-App.git' // Replace with your public repository URL
+                    ]]
+                ])
             }
         }
+    }
+}
         stage('Clean') {
             steps {
                 sh 'mvn clean'
