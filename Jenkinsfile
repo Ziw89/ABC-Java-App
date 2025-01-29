@@ -19,7 +19,7 @@ pipeline {
                     $class: 'GitSCM',
                     branches: [[name: '*/main']], // Replace 'main' with your branch
                     userRemoteConfigs: [[
-                        url: 'https://github.com/Ngwaabanjong/ABC-Java-App.git' // Replace with your public repository URL
+                        url: 'https://github.com/Ziw89/ABC-Java-App.git' // Replace with your public repository URL
                     ]]
                 ])
             }
