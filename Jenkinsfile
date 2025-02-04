@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'slave' }  // Use the agent with label "slave"
 
     environment {
         dockerImage = '' // This can be assigned dynamically in the pipeline
